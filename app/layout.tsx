@@ -15,14 +15,43 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
 });
 
+const siteOrigin =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
+const siteTitle = "Mushfique Hussain — Portfolio";
+const siteDescription =
+  "A designer learning to build. Exploring the details, interactions, and ideas that make digital experiences feel right.";
+const previewImage = "/images/og-portfolio.png";
+
 export const metadata: Metadata = {
-  title: "Mushfique Hussain — Design × Engineering",
-  description:
-    "A personal portfolio by Mushfique Hussain: thoughtful design, a growing engineering practice, and work made with care.",
+  metadataBase: new URL(siteOrigin),
+  title: siteTitle,
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Mushfique Hussain — Design × Engineering",
-    description: "In a world full of noise, I want the details to speak.",
+    title: siteTitle,
+    description: siteDescription,
+    siteName: siteTitle,
+    url: siteOrigin,
     type: "website",
+    images: [
+      {
+        url: previewImage,
+        alt: "Mushfique Hussain’s portfolio hero with its headline and portrait card",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+    images: [previewImage],
   },
 };
 
